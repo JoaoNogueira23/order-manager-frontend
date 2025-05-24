@@ -4,8 +4,7 @@ export interface Table {
   id: string;
   number: number;
   location: string;
-  status: 'Available' | 'Occupied' | 'Reserved';
-  capacity: number;
+  isOccupied: 'false' | 'true';
 }
 
 export interface Product {

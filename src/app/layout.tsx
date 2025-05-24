@@ -18,6 +18,8 @@ export const metadata: Metadata = {
   description: 'Easily manage tables, products, and orders with MesaFacil.',
 };
 
+
+
 export default function RootLayout({
   children,
 }: Readonly<{

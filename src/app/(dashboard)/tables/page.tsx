@@ -1,24 +1,17 @@
 import { PageHeader } from '@/components/layout/PageHeader';
 import { TableCard } from '@/components/tables/TableCard';
-import { mockTables } from '@/lib/data';
-import type { Table } from '@/lib/types';
 import { Button } from '@/components/ui/button';
+import { getHandlesAPI } from '@/lib/api';
 import { PlusCircle } from 'lucide-react';
 
 export const metadata = {
   title: 'Tables - MesaFacil',
 };
 
-// Simulate fetching data
-async function getTables(): Promise<Table[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockTables);
-    }, 200); // Simulate network delay
-  });
-}
 
 export default async function TablesPage() {
+  const {getTables} = getHandlesAPI()
+
   const tables = await getTables();
 
   return (

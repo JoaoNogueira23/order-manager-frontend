@@ -1,5 +1,4 @@
 import { PageHeader } from '@/components/layout/PageHeader';
-import { getTableById, getOrdersByTableId } from '@/lib/data';
 import type { Order, Table } from '@/lib/types';
 import { OrderSummaryCard } from '@/components/orders/OrderSummaryCard';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -8,6 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import Link from 'next/link';
+import {getHandlesAPI} from "@/lib/api";
 
 export const metadata = {
   title: 'Table Details - MesaFacil',
@@ -19,17 +19,21 @@ interface TableDetailsPageProps {
 
 // Simulate fetching data
 async function getTableData(tableId: string): Promise<{ table: Table | undefined; orders: Order[] }> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      const table = getTableById(tableId);
-      const orders = table ? getOrdersByTableId(tableId) : [];
-      resolve({ table, orders });
-    }, 200);
-  });
+  const {getOrders, getTableById} = getHandlesAPI()
+  
+  return new Promise(async (resolve, reject) => {
+  try {
+    const table: Table = await getTableById(tableId);
+    const orders = table ? await getOrders(tableId) : [];
+    resolve({ table, orders });
+  } catch (error) {
+    console.log(error);
+  }
+});
 }
 
 export default async function TableDetailsPage({ params }: TableDetailsPageProps) {
-  const { table, orders } = await getTableData(params.tableId);
+  const { table, orders } = await getTableData(params.tableId ? params.tableId : '');
 
   if (!table) {
     return (
@@ -45,16 +49,16 @@ export default async function TableDetailsPage({ params }: TableDetailsPageProps
   }
 
   const statusColors = {
-    Available: 'text-green-600 bg-green-100 border-green-500',
-    Occupied: 'text-red-600 bg-red-100 border-red-500',
-    Reserved: 'text-yellow-600 bg-yellow-100 border-yellow-500',
+    Livre: 'text-green-600 bg-green-100 border-green-500',
+    Ocupada: 'text-red-600 bg-red-100 border-red-500',
+    Reservada: 'text-yellow-600 bg-yellow-100 border-yellow-500',
   };
 
   return (
     <>
       <PageHeader 
-        title={`Table ${table.number} - ${table.location}`}
-        description={`Details and current orders for Table ${table.number}.`}
+        title={`Table ${table.table_number} - ${table.location}`}
+        description={`Details and current orders for Table ${table.table_number}.`}
         actions={
           <Button>
             <PlusCircle className="mr-2 h-4 w-4" /> Add New Order
@@ -69,7 +73,7 @@ export default async function TableDetailsPage({ params }: TableDetailsPageProps
         <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-4 text-foreground/90">
           <div className="flex items-center">
             <Armchair className="mr-3 h-5 w-5 text-primary" />
-            <span><strong>Number:</strong> {table.number}</span>
+            <span><strong>Number:</strong> {table.table_number}</span>
           </div>
           <div className="flex items-center">
             <MapPin className="mr-3 h-5 w-5 text-primary" />
@@ -94,7 +98,7 @@ export default async function TableDetailsPage({ params }: TableDetailsPageProps
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {orders.map((order) => (
-              <OrderSummaryCard key={order.id} order={order} />
+              <OrderSummaryCard key={order.id_order} order={order} />
             ))}
           </div>
         )}

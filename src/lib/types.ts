@@ -1,10 +1,12 @@
 import type { LucideIcon } from 'lucide-react';
+import internal from 'stream';
 
 export interface Table {
-  id: string;
-  number: number;
+  id_table: string;
+  table_number: number;
   location: string;
-  isOccupied: 'false' | 'true';
+  status: 'Livre' | 'Ocupada' | 'Reservada';
+  capacity: number;
 }
 
 export interface Product {
@@ -20,20 +22,19 @@ export interface Product {
 
 export interface OrderItem {
   id: string;
-  productId: string;
   productName: string;
-  productImageUrl: string;
   quantity: number;
   unitPrice: number;
   totalPrice: number;
+  status: string;
 }
 
 export interface Order {
-  id: string;
-  tableId: string;
-  tableName: string; // Denormalized for display
-  orderTime: string; // ISO string
-  status: 'Pending' | 'Preparing' | 'Ready' | 'Served' | 'Paid' | 'Cancelled';
-  items: OrderItem[];
-  totalAmount: number;
+  order_rank: number;
+  id_order: string;
+  id_table: string;
+  id_section: string;
+  order_time: string;
+  status: 'Pendente' | 'Pronto' | 'Entregue' | 'Cancelado';
+  quantity: number;
 }

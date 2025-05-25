@@ -28,33 +28,33 @@ export function TableCard({ table }: TableCardProps) {
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden">
       <CardHeader className="pb-3">
         <div className="flex justify-between items-start">
-          <CardTitle className="text-2xl font-semibold">Table {table.number}</CardTitle>
+          <CardTitle className="text-2xl font-semibold">Table {table.table_number}</CardTitle>
           <Badge 
             className={cn(
               "text-xs px-2 py-1",
-              table.isOccupied === 'false' && 'border-green-500 text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/50 dark:border-green-700',
-              table.isOccupied === 'true' && 'border-red-500 text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/50 dark:border-red-700',
-              /* table.isOccupied === 'Reserved' && 'border-yellow-500 text-yellow-700 bg-yellow-100 dark:text-yellow-300 dark:bg-yellow-900/50 dark:border-yellow-700' */
+              table.status === 'Livre' && 'border-green-500 text-green-700 bg-green-100 dark:text-green-300 dark:bg-green-900/50 dark:border-green-700',
+              table.status === 'Ocupada' && 'border-red-500 text-red-700 bg-red-100 dark:text-red-300 dark:bg-red-900/50 dark:border-red-700',
+              table.status === 'Reservada' && 'border-yellow-500 text-yellow-700 bg-yellow-100 dark:text-yellow-300 dark:bg-yellow-900/50 dark:border-yellow-700'
             )} 
             variant="outline"
           >
-             {table.isOccupied === 'false' && <CheckCircle className="mr-1 h-3 w-3" />}
-             {table.isOccupied === 'true' && <XCircle className="mr-1 h-3 w-3" />}
-             {/* {table.isOccupied === 'Reserved' && <Clock className="mr-1 h-3 w-3" /> */}
-            {table.isOccupied == 'false' ? "Livre" : "Ocupada"}
+             {table.status === 'Livre' && <CheckCircle className="mr-1 h-3 w-3" />}
+             {table.status === 'Ocupada' && <XCircle className="mr-1 h-3 w-3" />}
+             {table.status === 'Reservada' && <Clock className="mr-1 h-3 w-3" />}
+            {table.status}
           </Badge>
         </div>
         <CardDescription className="flex items-center text-sm text-muted-foreground pt-1">
           <MapPin className="mr-2 h-4 w-4" /> {table.location}
         </CardDescription>
       </CardHeader>
-      {/* <CardContent className="flex-grow">
+      <CardContent className="flex-grow">
         <div className="flex items-center text-sm text-foreground/80">
           <Users className="mr-2 h-4 w-4" /> Capacity: {table.capacity} guests
         </div>
-      </CardContent> */}
+      </CardContent>
       <CardFooter>
-        <Link href={`/tables/${table.id}`} passHref className="w-full">
+        <Link href={`/tables/${table.id_table}`} passHref className="w-full">
           <Button variant="default" className="w-full bg-primary hover:bg-primary/90 text-primary-foreground">
             View Details & Orders
           </Button>

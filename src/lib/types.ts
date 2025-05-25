@@ -21,12 +21,9 @@ export interface Product {
 }
 
 export interface OrderItem {
-  id: string;
-  productName: string;
+  total_price: number;
   quantity: number;
-  unitPrice: number;
-  totalPrice: number;
-  status: string;
+  product_name: string;
 }
 
 export interface Order {
@@ -35,6 +32,6 @@ export interface Order {
   id_table: string;
   id_section: string;
   order_time: string;
-  status: 'Pendente' | 'Pronto' | 'Entregue' | 'Cancelado';
+  status: 'Pendente' | 'Preparando' | 'Entregue' | 'Cancelado' ;
   quantity: number;
 }

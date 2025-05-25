@@ -13,11 +13,11 @@ interface OrderSummaryCardProps {
 
 const statusConfig = {
   Pendente: { icon: <Clock className="h-4 w-4" />, color: 'text-yellow-600 dark:text-yellow-400', bgColor: 'bg-yellow-100 dark:bg-yellow-900/50', borderColor: 'border-yellow-500 dark:border-yellow-600' },
-  Pronto: { icon: <CheckCircle className="h-4 w-4" />, color: 'text-purple-600 dark:text-purple-400', bgColor: 'bg-purple-100 dark:bg-purple-900/50', borderColor: 'border-purple-500 dark:border-purple-600' },
-  Entregue: { icon: <CheckCircle className="h-4 w-4" />, color: 'text-green-600 dark:text-green-400', bgColor: 'bg-green-100 dark:bg-green-900/50', borderColor: 'border-green-500 dark:border-green-600' },
-  Cancelado: { icon: <AlertTriangle className="h-4 w-4" />, color: 'text-red-600 dark:text-red-400', bgColor: 'bg-red-100 dark:bg-red-900/50', borderColor: 'border-red-500 dark:border-red-600' }
-  /* Paid: { icon: <CircleDollarSign className="h-4 w-4" />, color: 'text-gray-600 dark:text-gray-400', bgColor: 'bg-gray-100 dark:bg-gray-900/50', borderColor: 'border-gray-500 dark:border-gray-600' },
-  Cancelled: { icon: <AlertTriangle className="h-4 w-4" />, color: 'text-red-600 dark:text-red-400', bgColor: 'bg-red-100 dark:bg-red-900/50', borderColor: 'border-red-500 dark:border-red-600' }, */
+  Preparando: { icon: <Loader2 className="h-4 w-4 animate-spin" />, color: 'text-blue-600 dark:text-blue-400', bgColor: 'bg-blue-100 dark:bg-blue-900/50', borderColor: 'border-blue-500 dark:border-blue-600' },
+  Entregue: { icon: <CheckCircle className="h-4 w-4" />, color: 'text-purple-600 dark:text-purple-400', bgColor: 'bg-purple-100 dark:bg-purple-900/50', borderColor: 'border-purple-500 dark:border-purple-600' },
+  /* Served: { icon: <CheckCircle className="h-4 w-4" />, color: 'text-green-600 dark:text-green-400', bgColor: 'bg-green-100 dark:bg-green-900/50', borderColor: 'border-green-500 dark:border-green-600' },
+  Paid: { icon: <CircleDollarSign className="h-4 w-4" />, color: 'text-gray-600 dark:text-gray-400', bgColor: 'bg-gray-100 dark:bg-gray-900/50', borderColor: 'border-gray-500 dark:border-gray-600' }, */
+  Cancelado: { icon: <AlertTriangle className="h-4 w-4" />, color: 'text-red-600 dark:text-red-400', bgColor: 'bg-red-100 dark:bg-red-900/50', borderColor: 'border-red-500 dark:border-red-600' },
 };
 
 

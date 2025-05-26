@@ -35,6 +35,7 @@ async function getOrderData(orderId: string): Promise<{order: Order | undefined;
       const orderItens: OrderItem[] = await getOrderItens(orderId);
       resolve({order, orderItens});
     } catch (error) {
+      console.log(error)
       reject(error);
   }
 });
@@ -50,7 +51,8 @@ const statusConfig = {
 };
 
 export default async function OrderDetailsPage({ params }: OrderDetailsPageProps) {
-  const {order, orderItens} = await getOrderData(params.orderId);
+  const { orderId } = await params
+  const {order, orderItens} = await getOrderData(orderId);
 
   if (!order) {
     return (

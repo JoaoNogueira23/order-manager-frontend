@@ -33,7 +33,8 @@ async function getTableData(tableId: string): Promise<{ table: Table | undefined
 }
 
 export default async function TableDetailsPage({ params }: TableDetailsPageProps) {
-  const { table, orders } = await getTableData(params.tableId ? params.tableId : '');
+  const {tableId} = await params;
+  const { table, orders } = await getTableData(tableId ? tableId : '');
 
   if (!table) {
     return (

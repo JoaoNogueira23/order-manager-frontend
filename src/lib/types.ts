@@ -10,14 +10,15 @@ export interface Table {
 }
 
 export interface Product {
-  id: string;
+  id_product: string;
   name: string;
   price: number;
-  imageUrl: string;
-  category: 'Drinks' | 'Main Courses' | 'Desserts' | 'Appetizers';
-  categoryIcon: LucideIcon;
-  description: string;
-  dataAiHint?: string;
+  voulume: number;
+  describe: string;
+  isactive: boolean;
+  Ispromotion: boolean;
+  url_image: string;
+  category: 'Bebidas' | 'Sobremesa' | 'Aperitivos';
 }
 
 export interface OrderItem {
@@ -34,4 +35,11 @@ export interface Order {
   order_time: string;
   status: 'Pendente' | 'Preparando' | 'Entregue' | 'Cancelado' ;
   quantity: number;
+}
+
+
+export interface Response {
+  status: number;
+  message: string;
+  data?: any; // Use 'any' for flexibility, or define a more specific type if needed
 }

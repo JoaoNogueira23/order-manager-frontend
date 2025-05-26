@@ -13,7 +13,7 @@ interface ProductListClientProps {
   itemsPerPage?: number;
 }
 
-const CATEGORIES = ["All", "Drinks", "Main Courses", "Desserts", "Appetizers"];
+const CATEGORIES = ["All", "Bebidas", "Aperitivos", "Sobremesa"];
 
 export function ProductListClient({ initialProducts, itemsPerPage = 6 }: ProductListClientProps) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -26,7 +26,7 @@ export function ProductListClient({ initialProducts, itemsPerPage = 6 }: Product
 
   const filteredProducts = initialProducts.filter(product => {
     const matchesSearchTerm = product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                              product.description.toLowerCase().includes(searchTerm.toLowerCase());
+                              product.describe.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesCategory = selectedCategory === 'All' || product.category === selectedCategory;
     return matchesSearchTerm && matchesCategory;
   });
@@ -115,7 +115,7 @@ export function ProductListClient({ initialProducts, itemsPerPage = 6 }: Product
       ) : (
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {paginatedProducts.map((product) => (
-            <ProductCard key={product.id} product={product} />
+            <ProductCard key={product.id_product} product={product} />
           ))}
         </div>
       )}

@@ -3,7 +3,8 @@ import { mockProducts } from '@/lib/data';
 import type { Product } from '@/lib/types';
 import { ProductListClient } from '@/components/products/ProductListClient';
 import { Button } from '@/components/ui/button';
-import { PlusCircle } from 'lucide-react';
+import { CatIcon, PlusCircle } from 'lucide-react';
+import { handlesAPIProducts } from '@/lib/api_products';
 
 export const metadata = {
   title: 'Products - MesaFacil',
@@ -11,11 +12,17 @@ export const metadata = {
 
 // Simulate fetching data
 async function getProducts(): Promise<Product[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(mockProducts);
-    }, 200); // Simulate network delay
-  });
+  const {getProducts} = handlesAPIProducts()
+  return new Promise(async (resolve, reject) => {
+    try{
+      const data: Product[] = await getProducts();
+      return data;
+    } catch (error) {
+      console.error('Error fetching products:', error);
+    }
+
+  })
+
 }
 
 export default async function ProductsPage({

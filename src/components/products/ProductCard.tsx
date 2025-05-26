@@ -10,27 +10,27 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
-  const IconComponent = product.categoryIcon;
+  //const IconComponent = product.categoryIcon;
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden">
       <div className="relative w-full h-48 sm:h-56">
         <Image
-          src={product.imageUrl}
+          src={product.url_image}
           alt={product.name}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover"
-          data-ai-hint={product.dataAiHint || 'food item'}
+          //data-ai-hint={product.dataAiHint || 'food item'}
         />
         <Badge variant="secondary" className="absolute top-2 right-2 flex items-center gap-1 bg-background/80 backdrop-blur-sm">
-          {IconComponent && <IconComponent className="h-4 w-4 text-muted-foreground" />}
+          {/* {IconComponent && <IconComponent className="h-4 w-4 text-muted-foreground" />} */}
           {product.category}
         </Badge>
       </div>
       <CardHeader className="pb-2">
         <CardTitle className="text-xl font-semibold truncate" title={product.name}>{product.name}</CardTitle>
         <CardDescription className="text-sm text-muted-foreground h-10 overflow-hidden text-ellipsis">
-          {product.description}
+          {product.describe}
         </CardDescription>
       </CardHeader>
       <CardContent className="flex-grow mt-1">

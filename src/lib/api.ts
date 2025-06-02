@@ -10,7 +10,7 @@ async function getTables(): Promise<Table[]> {
     const response = await fetch(url, {
         method: "GET",
         cache:'no-store' 
-    }
+    } 
     )
     if (response.ok) {
       if(response.status === 200) {
@@ -19,7 +19,7 @@ async function getTables(): Promise<Table[]> {
       }
       return [];
     } else {
-      throw new Error('Failed to fetch tables');
+      return [];
     }
 }
 
@@ -43,6 +43,35 @@ async function getTableById(tableId: string): Promise<Table> {
       throw new Error('Failed to fetch tables');
     }
 
+}
+
+async function createTable(table: Table): Promise<Table> {
+  try {
+    console.log("Creating table with data:", table);
+
+    const response = await fetch(`http://localhost:8080/api/create-table`, {
+      method: "POST",
+      cache: "no-store",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(table),
+    });
+
+    console.log("Response:", response);
+    if (response.ok) {
+      const data: Table = await response.json();
+      return data;
+    }
+
+    // Se não for 2xx
+    console.error("API Error:", response.status, await response.text());
+    return {} as Table;
+
+  } catch (error) {
+    console.error("Fetch error:", error);
+    return {} as Table;
+  }
 }
 
 async function getOrders(tableId: string): Promise<Order[]> {
@@ -131,7 +160,7 @@ async function getOrderItemById(orderItemId: string): Promise<OrderItem> {
     )
 
     if (response.ok) {
-      if (response.status === 200) {
+      if (response.status === 201) {
         const data: OrderItem = await response.json()
         return data
       }
@@ -151,6 +180,7 @@ export function getHandlesAPI() {
       getOrderById: getOrderById,
       getOrderItemById: getOrderItemById,
       getOrderItens: getOrderItens,
+      createTable: createTable,
     };
   }
   

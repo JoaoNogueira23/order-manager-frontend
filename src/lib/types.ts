@@ -5,7 +5,7 @@ export interface Table {
   id_table: string;
   table_number: number;
   location: string;
-  status: 'Livre' | 'Ocupada' | 'Reservada';
+  status?: 'Livre' | 'Ocupada' | 'Reservada';
   capacity: number;
 }
 

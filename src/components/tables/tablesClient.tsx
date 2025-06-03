@@ -32,6 +32,7 @@ const formSchema = z.object({
 
 export default function TablesClient({ tables }: { tables: any[] }) {
     const {createTable} = getHandlesAPI()
+    const [open, setOpen] = useState(false);
 
     const form = useForm({
             resolver: zodResolver(formSchema),
@@ -42,6 +43,7 @@ export default function TablesClient({ tables }: { tables: any[] }) {
         const response = await createTable(table)
         console.log('Response:', response)
         if (response.status == 201) {
+            setOpen(false);
             redirect("/tables")
         }
     }
@@ -52,7 +54,7 @@ export default function TablesClient({ tables }: { tables: any[] }) {
             title="Restaurant Tables"
             description="Oversee and manage all dining tables."
             actions={
-            <Dialog>
+            <Dialog open={open} onOpenChange={setOpen}>
                     <DialogTrigger asChild>
                         <Button>
                             <PlusCircle className="mr-2 h-4 w-4" /> Add New Table

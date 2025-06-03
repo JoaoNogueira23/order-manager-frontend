@@ -1,6 +1,6 @@
 // lib/config.ts
 import { getGlobalUrls } from "./configs";
-import type { Table, Order, OrderItem } from "./types";
+import type { Table, Order, OrderItem, ResponseAPI } from "./types";
 
 const {url_api} = getGlobalUrls();
 
@@ -45,10 +45,8 @@ async function getTableById(tableId: string): Promise<Table> {
 
 }
 
-async function createTable(table: Table): Promise<Table> {
+async function createTable(table: Table): Promise<ResponseAPI> {
   try {
-    console.log("Creating table with data:", table);
-
     const response = await fetch(`http://localhost:8080/api/create-table`, {
       method: "POST",
       cache: "no-store",
@@ -58,19 +56,18 @@ async function createTable(table: Table): Promise<Table> {
       body: JSON.stringify(table),
     });
 
-    console.log("Response:", response);
-    if (response.ok) {
-      const data: Table = await response.json();
-      return data;
+    return {
+      status: response.status,
+      message: "Table created successfully",
+      data: []
     }
 
-    // Se não for 2xx
-    console.error("API Error:", response.status, await response.text());
-    return {} as Table;
-
   } catch (error) {
-    console.error("Fetch error:", error);
-    return {} as Table;
+    return {
+      status: 500,
+      message: "An error occurred while creating the table",
+      data: []
+    }
   }
 }
 

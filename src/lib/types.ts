@@ -38,7 +38,7 @@ export interface Order {
 }
 
 
-export interface Response {
+export interface ResponseAPI {
   status: number;
   message: string;
   data?: any; // Use 'any' for flexibility, or define a more specific type if needed

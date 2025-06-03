@@ -21,7 +21,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { getHandlesAPI } from '@/lib/api';
 import { Table } from '@/lib/types';
-import { Response } from './../../lib/types';
+import { redirect } from 'next/navigation';
 
 // schema de validação
 const formSchema = z.object({
@@ -38,10 +38,12 @@ export default function TablesClient({ tables }: { tables: any[] }) {
         })
   
     const onSubmit = async (data: any) => {
-        console.log('Form data:', data)
         const table: Table = data
         const response = await createTable(table)
-        console.log(response)
+        console.log('Response:', response)
+        if (response.status == 201) {
+            redirect("/tables")
+        }
     }
 
     return (

@@ -43,3 +43,11 @@ export interface ResponseAPI {
   message: string;
   data?: any; // Use 'any' for flexibility, or define a more specific type if needed
 }
+
+// Represents the paginated product list returned by the API
+export interface ProductsResponse {
+  data: Product[];
+  total: number;
+  page: string;     // current page as a string
+  per_page: string; // items per page as a string
+}

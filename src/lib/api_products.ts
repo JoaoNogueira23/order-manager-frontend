@@ -33,8 +33,6 @@ async function getProducts(page?: number, limit?: number): Promise<ProductsRespo
 
 async function createProduct(product: Product): Promise<Response> {
     const url = `http://localhost:8080/api/create-product`;
-    console.log('Creating product:', product);
-    console.log('JSON product', JSON.stringify([product]));
     const response = await fetch(url, {
         method: "POST",
         headers: {
@@ -46,7 +44,6 @@ async function createProduct(product: Product): Promise<Response> {
 
     if (response.ok) {
         const response_json = await response.json();
-        console.log(response_json);
         return response_json;
     } else {
         throw new Error('Failed to create product');

@@ -63,7 +63,7 @@ export default function ProductsClient({ products, itemsPerPage }: ProductsClien
     };
 
     const response: any = await createProduct(product);
-    if (response && response.status === 201) {
+    if (response && response == "produto(s) criados com sucesso!") {
       setOpen(false);
       redirect('/products');
     }

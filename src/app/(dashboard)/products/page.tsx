@@ -1,28 +1,24 @@
 import { PageHeader } from '@/components/layout/PageHeader';
-import { mockProducts } from '@/lib/data';
 import type { Product } from '@/lib/types';
 import { ProductListClient } from '@/components/products/ProductListClient';
 import { Button } from '@/components/ui/button';
-import { CatIcon, PlusCircle } from 'lucide-react';
+import { PlusCircle } from 'lucide-react';
 import { handlesAPIProducts } from '@/lib/api_products';
 
 export const metadata = {
   title: 'Products - MesaFacil',
 };
 
-// Simulate fetching data
+// Fetch products from the API
 async function getProducts(): Promise<Product[]> {
-  const {getProducts} = handlesAPIProducts()
-  return new Promise(async (resolve, reject) => {
-    try{
-      const data: Product[] = await getProducts();
-      return data;
-    } catch (error) {
-      console.error('Error fetching products:', error);
-    }
-
-  })
-
+  const { getProducts: fetchProducts } = handlesAPIProducts();
+  try {
+    const data: Product[] = await fetchProducts();
+    return data;
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
 }
 
 export default async function ProductsPage({

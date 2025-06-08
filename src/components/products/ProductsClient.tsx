@@ -27,7 +27,7 @@ import { ProductListClient } from './ProductListClient';
 const formSchema = z.object({
   name: z.string().min(1, 'Name is required'),
   price: z.number().min(0, 'Price is required'),
-  voulume: z.number().min(0, 'Volume is required'),
+  volume: z.number().min(0, 'Volume is required'),
   describe: z.string().min(1, 'Description is required'),
   url_image: z.string().url('Image URL must be valid'),
   category: z.enum(['Bebidas', 'Sobremesa', 'Aperitivos']),
@@ -47,7 +47,7 @@ export default function ProductsClient({ products, itemsPerPage }: ProductsClien
     defaultValues: {
       name: '',
       price: 0,
-      voulume: 0,
+      volume: 0,
       describe: '',
       url_image: '',
       category: 'Bebidas',
@@ -119,7 +119,7 @@ export default function ProductsClient({ products, itemsPerPage }: ProductsClien
 
                   <FormField
                     control={form.control}
-                    name="voulume"
+                    name="volume"
                     render={({ field }) => (
                       <FormItem>
                         <FormLabel>Volume (ml)</FormLabel>

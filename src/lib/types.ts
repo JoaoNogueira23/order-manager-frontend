@@ -13,7 +13,7 @@ export interface Product {
   id_product: string;
   name: string;
   price: number;
-  voulume: number;
+  volume: number;
   describe: string;
   isactive: boolean;
   Ispromotion: boolean;

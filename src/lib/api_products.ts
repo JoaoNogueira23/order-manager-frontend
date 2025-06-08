@@ -31,13 +31,15 @@ async function getProducts(page?: number, limit?: number): Promise<Product[]> {
 }
 
 async function createProduct(product: Product): Promise<Response> {
-    const url = `${url_api}/api/create-product`;
+    const url = `http://localhost:8080/api/create-product`;
+    console.log('Creating product:', product);
+    console.log('JSON product', JSON.stringify([product]));
     const response = await fetch(url, {
         method: "POST",
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify(product),
+        body: JSON.stringify([product]),
         cache: 'no-store'
     });
 

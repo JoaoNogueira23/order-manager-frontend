@@ -28,7 +28,7 @@ interface ProductsPageProps {
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  const page = parseInt(searchParams?.page || '1', 10);
+  const page = parseInt(searchParams?.page || '0', 10);
   const limit = parseInt(searchParams?.limit || '6', 10);
 
   const allProducts = await getProducts(page, limit);

@@ -37,6 +37,11 @@ export interface Order {
   quantity: number;
 }
 
+export interface CreateOrder {
+  id_table: string;
+  quantity: number;
+}
+
 
 export interface ResponseAPI {
   status: number;

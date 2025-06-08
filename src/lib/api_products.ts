@@ -3,8 +3,15 @@ import { Product } from "./types";
 
 const { url_api } = getGlobalUrls();
 
-async function getProducts(): Promise<Product[]> {
-    const url = `${url_api}/api/products`;
+async function getProducts(page?: number, limit?: number): Promise<Product[]> {
+    let url = `${url_api}/api/products`;
+    const params = new URLSearchParams();
+    if (page !== undefined) params.set('page', String(page));
+    if (limit !== undefined) params.set('limit', String(limit));
+    const query = params.toString();
+    if (query) {
+        url = `${url}?${query}`;
+    }
 
     const response = await fetch(url, {
         method: "GET",

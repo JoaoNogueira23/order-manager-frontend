@@ -7,10 +7,10 @@ export const metadata = {
 };
 
 // Fetch products from the API
-async function getProducts(): Promise<Product[]> {
+async function getProducts(page: number, limit: number): Promise<Product[]> {
   const { getProducts: fetchProducts } = handlesAPIProducts();
   try {
-    const data: Product[] = await fetchProducts();
+    const data: Product[] = await fetchProducts(page, limit);
     return data;
   } catch (error) {
     console.error('Error fetching products:', error);
@@ -18,9 +18,22 @@ async function getProducts(): Promise<Product[]> {
   }
 }
 
-export default async function ProductsPage() {
-  const allProducts = await getProducts();
-  const itemsPerPage = 6;
+interface ProductsPageProps {
+  searchParams?: {
+    page?: string;
+    limit?: string;
+  };
+}
 
-  return <ProductsClient products={allProducts} itemsPerPage={itemsPerPage} />;
+export default async function ProductsPage({
+  searchParams,
+}: ProductsPageProps) {
+  const page = parseInt(searchParams?.page || '1', 10);
+  const limit = parseInt(searchParams?.limit || '6', 10);
+
+  const allProducts = await getProducts(page, limit);
+
+  return (
+    <ProductsClient products={allProducts} itemsPerPage={limit} />
+  );
 }

@@ -1,4 +1,4 @@
-import type { Product } from '@/lib/types';
+import type { Product, ProductsResponse } from '@/lib/types';
 import { handlesAPIProducts } from '@/lib/api_products';
 import ProductsClient from '@/components/products/ProductsClient';
 
@@ -7,14 +7,14 @@ export const metadata = {
 };
 
 // Fetch products from the API
-async function getProducts(page: number, limit: number): Promise<Product[]> {
+async function getProducts(page: number, limit: number): Promise<ProductsResponse> {
   const { getProducts: fetchProducts } = handlesAPIProducts();
   try {
-    const data: Product[] = await fetchProducts(page, limit);
+    const data: ProductsResponse = await fetchProducts(page, limit);
     return data;
   } catch (error) {
     console.error('Error fetching products:', error);
-    return [];
+    return { data: [], total: 0, page: '0', per_page: '0' };
   }
 }
 
@@ -31,9 +31,10 @@ export default async function ProductsPage({
   const page = parseInt(searchParams?.page || '0', 10);
   const limit = parseInt(searchParams?.limit || '6', 10);
 
-  const allProducts = await getProducts(page, limit);
+  const apiResponse = await getProducts(page, limit);
+  const itemsPerPage = parseInt(apiResponse.per_page, 10) || limit;
 
   return (
-    <ProductsClient products={allProducts} itemsPerPage={limit} />
+    <ProductsClient products={apiResponse.data} itemsPerPage={itemsPerPage} />
   );
 }

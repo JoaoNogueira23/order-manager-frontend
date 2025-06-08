@@ -1,9 +1,9 @@
 import { getGlobalUrls } from "./configs";
-import { Product } from "./types";
+import { Product, ProductsResponse } from "./types";
 
 const { url_api } = getGlobalUrls();
 
-async function getProducts(page?: number, limit?: number): Promise<Product[]> {
+async function getProducts(page?: number, limit?: number): Promise<ProductsResponse> {
     let url = `${url_api}/api/products`;
     const params = new URLSearchParams();
     if (page !== undefined) params.set('page', String(page));
@@ -20,10 +20,11 @@ async function getProducts(page?: number, limit?: number): Promise<Product[]> {
 
     if (response.ok) {
         if (response.status === 200) {
-            const data: Product[] = await response.json();
+            const data: ProductsResponse = await response.json();
             return data;
         }
-        return [];
+        // Default empty structure if response is not 200
+        return { data: [], total: 0, page: "0", per_page: "0" };
     } else {
         throw new Error('Failed to fetch products');
     }

@@ -157,14 +157,15 @@ async function getOrderItemById(orderItemId: string): Promise<OrderItem> {
     )
 
     if (response.ok) {
-      if (response.status === 201) {
+      if (response.status === 200) {
         const data: OrderItem = await response.json()
         return data
       }
-      return {} as OrderItem;
+      return {} as OrderItem
     } else {
-      throw new Error('Failed to fetch order item');
-    }}
+      throw new Error('Failed to fetch order item')
+    }
+}
 
 
 

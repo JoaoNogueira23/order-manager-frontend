@@ -28,8 +28,8 @@ interface ProductsPageProps {
 export default async function ProductsPage({
   searchParams,
 }: ProductsPageProps) {
-  const page = parseInt(searchParams?.page || '0', 10);
-  const limit = parseInt(searchParams?.limit || '6', 10);
+  const page = await parseInt(searchParams?.page || '0', 10);
+  const limit = await parseInt(searchParams?.limit || '6', 10);
 
   const apiResponse = await getProducts(page, limit);
   const itemsPerPage = parseInt(apiResponse.per_page, 10) || limit;

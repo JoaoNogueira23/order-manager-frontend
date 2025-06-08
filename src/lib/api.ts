@@ -1,6 +1,6 @@
 // lib/config.ts
 import { getGlobalUrls } from "./configs";
-import type { Table, Order, OrderItem, ResponseAPI } from "./types";
+import type { Table, Order, OrderItem, ResponseAPI, CreateOrder } from "./types";
 
 const {url_api} = getGlobalUrls();
 
@@ -47,7 +47,7 @@ async function getTableById(tableId: string): Promise<Table> {
 
 async function createTable(table: Table): Promise<ResponseAPI> {
   try {
-    const response = await fetch(`http://localhost:8080/api/create-table`, {
+    const response = await fetch(`${url_api}/api/create-table`, {
       method: "POST",
       cache: "no-store",
       headers: {
@@ -167,6 +167,35 @@ async function getOrderItemById(orderItemId: string): Promise<OrderItem> {
     }
 }
 
+async function createOrder(order: CreateOrder): Promise<ResponseAPI> {
+    try {
+      const response = await fetch(
+        `${url_api}/api/orders/create-orders`,
+        {
+          method: "POST",
+          cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(order),
+        }
+      );
+
+      return {
+        status: response.status,
+        message: "Order created successfully",
+        data: [],
+      };
+
+    } catch (error) {
+      return {
+        status: 500,
+        message: "An error occurred while creating the order",
+        data: [],
+      };
+    }
+}
+
 
 
 export function getHandlesAPI() {
@@ -179,6 +208,7 @@ export function getHandlesAPI() {
       getOrderItemById: getOrderItemById,
       getOrderItens: getOrderItens,
       createTable: createTable,
+      createOrder: createOrder,
     };
   }
   

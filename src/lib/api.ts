@@ -196,6 +196,35 @@ async function createOrder(order: CreateOrder): Promise<ResponseAPI> {
     }
 }
 
+async function createSection(id_table: string): Promise<ResponseAPI> {
+    try {
+      const response = await fetch(
+        `${url_api}/api/orders/create-section`,
+        {
+          method: "POST",
+          cache: "no-store",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ "id_table": id_table }),
+        }
+      );
+
+      return {
+        status: response.status,
+        message: "Section created successfully",
+        data: [],
+      };
+
+    } catch (error) {
+      return {
+        status: 500,
+        message: "An error occurred while creating the section",
+        data: [],
+      };
+    }
+}
+
 
 
 export function getHandlesAPI() {

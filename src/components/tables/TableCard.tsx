@@ -43,6 +43,17 @@ export function TableCard({ table }: TableCardProps) {
              {table.status === 'Reservada' && <Clock className="mr-1 h-3 w-3" />}
             {table.status}
           </Badge>
+          <div className="flex items-center">
+              {table.status === 'Livre' && 
+              <Button 
+              variant="ghost" 
+              className="py-0 items-start border-green-500 bg-green-100 text-green-700"
+              onClick={() => console.log('Open section for table')}
+              >
+                Abrir Seção
+              </Button>
+              }
+          </div>
         </div>
         <CardDescription className="flex items-center text-sm text-muted-foreground pt-1">
           <MapPin className="mr-2 h-4 w-4" /> {table.location}

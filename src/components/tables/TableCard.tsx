@@ -1,3 +1,5 @@
+'use client'
+
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -5,6 +7,9 @@ import type { Table } from '@/lib/types';
 import { Armchair, CheckCircle, Clock, MapPin, Users, XCircle } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
+import { getHandlesAPI } from '@/lib/api';
+import { useState } from 'react';
+import { toast } from '@/hooks/use-toast';
 
 interface TableCardProps {
   table: Table;
@@ -24,6 +29,27 @@ const statusIcons = {
 
 
 export function TableCard({ table }: TableCardProps) {
+  const { createSection } = getHandlesAPI();
+  const [loading, setLoading] = useState(false);
+
+  const handleOpenSection = async () => {
+    setLoading(true);
+    const resp = await createSection(table.id_table);
+    if (resp.status >= 200 && resp.status < 300) {
+      toast({
+        title: "Seção aberta",
+        description: `Mesa ${table.table_number} em uso`,
+      });
+      window.location.reload();
+    } else {
+      toast({
+        title: "Erro ao abrir",
+        description: "Não foi possível abrir a seção",
+      });
+    }
+    setLoading(false);
+  };
+
   return (
     <Card className="flex flex-col h-full shadow-lg hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden">
       <CardHeader className="pb-3">
@@ -45,12 +71,13 @@ export function TableCard({ table }: TableCardProps) {
           </Badge>
           <div className="flex items-center">
               {table.status === 'Livre' && 
-              <Button 
-              variant="ghost" 
+              <Button
+              variant="ghost"
               className="py-0 items-start border-green-500 bg-green-100 text-green-700"
-              onClick={() => console.log('Open section for table')}
+              onClick={handleOpenSection}
+              disabled={loading}
               >
-                Abrir Seção
+                {loading ? 'Abrindo...' : 'Abrir Seção'}
               </Button>
               }
           </div>

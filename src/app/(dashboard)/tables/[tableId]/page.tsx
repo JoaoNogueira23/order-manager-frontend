@@ -85,7 +85,7 @@ export default async function TableDetailsPage({ params }: TableDetailsPageProps
             <span><strong>Capacity:</strong> {table.capacity} guests</span>
           </div>
           <div className="flex items-center">
-            <Badge variant="outline" className={cn("text-sm px-3 py-1", statusColors[table.status])}>
+            <Badge variant="outline" className={cn("text-sm px-3 py-1", statusColors[table.status? table.status : 'Livre'])}>
               <strong>Status:</strong> {table.status}
             </Badge>
           </div>

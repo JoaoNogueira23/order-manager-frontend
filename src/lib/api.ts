@@ -238,6 +238,7 @@ export function getHandlesAPI() {
       getOrderItens: getOrderItens,
       createTable: createTable,
       createOrder: createOrder,
+      createSection: createSection,
     };
   }
   
